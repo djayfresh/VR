@@ -30,6 +30,16 @@ namespace Game.Leap
             {
                 HandState = HandState.Down;
             }
+
+            if (dotNormal == -1)
+            {
+                HandState = HandState.NotTracking;
+            }
+
+            if (dotNormal > -0.5 && dotNormal < 0.5)
+            {
+                HandState = HandState.NotTracking;
+            }
         }
     }
 

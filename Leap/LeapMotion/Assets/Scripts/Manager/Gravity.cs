@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Leap.Unity;
+using Game.Leap;
 
 namespace Game.Manager
 {
@@ -11,7 +11,7 @@ namespace Game.Manager
         public bool GravityEnabled = false;
         public List<Rigidbody> Watching;
 
-        public RigidHand[] Hands;
+        public HandModel[] Hands;
 
         public Vector3 UP = Vector3.up;
         public float FacingOffset = 0.8f;
@@ -24,6 +24,8 @@ namespace Game.Manager
         void Start()
         {
             Block.OnCreated += NewObject;
+            InitalHandPositions = new Vector3[Hands.Length];
+            LastFrameHandPositions = new Vector3[Hands.Length];
         }
 
         void Destory()
@@ -67,34 +69,40 @@ namespace Game.Manager
 
         void HandGravityCheck()
         {
-            bool bothFacingUpThisFrame = false;
-            bool bothFacingDownThisFrame = false;
+            bool bothFacingUpThisFrame = true;
+            bool bothFacingDownThisFrame = true;
             for(int h = 0; h < Hands.Length; h++)
             {
-                RigidHand hand = Hands[h];
+                HandModel hand = Hands[h];
                 if (hand != null && hand.IsTracked)
-                {
-                    Vector3 handNormal = hand.GetPalmNormal();
-                    float dotNormal = Vector3.Dot(handNormal, UP);
-                    //Debug.Log(string.Format("Dot: {0}", dotNormal));
-                    if (dotNormal > FacingOffset)
-                    {
-                        bothFacingDownThisFrame = false;
-                    }
-                    else if (dotNormal < -FacingOffset)
+                {     
+                    if(hand.HandState == HandState.Down)
                     {
                         bothFacingUpThisFrame = false;
                     }
-                    
-                    if (bothFacingDownThisFrame || bothFacingUpThisFrame)
+                    if(hand.HandState == HandState.Up)
                     {
-                        if (InitalHandPositions == null)
+                        bothFacingDownThisFrame = false;
+                    }
+                    if(hand.HandState == HandState.NotTracking)
+                    {
+                        bothFacingDownThisFrame = false;
+                        bothFacingUpThisFrame = false;
+                    }
+
+                    if (hand.HandState == HandState.Down || hand.HandState == HandState.Up)
+                    {
+                        if(InitalHandPositions == null)
                         {
                             InitalHandPositions = new Vector3[Hands.Length];
-                            LastFrameHandPositions = new Vector3[Hands.Length];
                             InitalHandPositions[h] = hand.GetPalmPosition();
                         }
-                        else if (InitalHandPositions[h] == null)
+                        if (LastFrameHandPositions == null)
+                        {
+                            LastFrameHandPositions = new Vector3[Hands.Length];
+                        }
+
+                        if (InitalHandPositions[h] == null)
                         {
                             InitalHandPositions[h] = hand.GetPalmPosition();
                         }
@@ -104,19 +112,24 @@ namespace Game.Manager
                         }
                     }
                 }
+                else
+                {
+                    bothFacingDownThisFrame = false;
+                    bothFacingUpThisFrame = false;
+                }
             }
 
             //Debug.Log(string.Format("Up: {0} | Down: {1}", bothFacingUpThisFrame, bothFacingDownThisFrame));
 
             if(bothFacingUpThisFrame)
             {
-                Debug.Log(string.Format("Up: {0}", bothFacingUpThisFrame));
+                //Debug.Log(string.Format("Up: {0}", bothFacingUpThisFrame));
                 bool changeLastFrame = MovingCheck();
                 ComputeChange(changeLastFrame, false);
             }
             else if(bothFacingDownThisFrame)
             {
-                Debug.Log(string.Format("Down: {0}", bothFacingDownThisFrame));
+                //Debug.Log(string.Format("Down: {0}", bothFacingDownThisFrame));
                 bool changeLastFrame = MovingCheck(false);
                 ComputeChange(changeLastFrame, true);
             }

@@ -153,7 +153,7 @@ namespace Game.Manager
             {
                 HandsMovingLastFrameCount++;
             }
-            if (HandsMovingLastFrameCount > 50 && handsMovingThisFrame)
+            if (HandsMovingLastFrameCount > 150 && handsMovingThisFrame)
             {
                 ModifyGravity(gravityState);
                 HandsMovingLastFrameCount = 0;

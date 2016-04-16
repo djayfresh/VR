@@ -31,7 +31,7 @@ namespace Game.Leap
             foreach (var finger in fingers)
             {
                 float stretch = finger.GetFingerJointStretchMecanim((int)Bone.BoneType.TYPE_METACARPAL);
-                Debug.Log(String.Format("Finger: {0}, Stretch: {1}", GetFingerName(finger.fingerType), stretch));
+                //Debug.Log(String.Format("Finger: {0}, Stretch: {1}", GetFingerName(finger.fingerType), stretch));
             }
         }
 
@@ -43,8 +43,8 @@ namespace Game.Leap
                 Finger.FingerType.TYPE_MIDDLE,
                 Finger.FingerType.TYPE_RING,
                 Finger.FingerType.TYPE_PINKY,
-                Finger.FingerType.TYPE_THUMB,
-            }
+                Finger.FingerType.TYPE_THUMB
+            };
         }
 
         private string GetFingerName(Finger.FingerType finger)

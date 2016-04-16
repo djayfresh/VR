@@ -9,9 +9,8 @@ namespace Game.Leap
     public class HandModel : RigidHand
     {
         public HandState HandState = HandState.NotTracking;
-        public FingersState FingersState = FingersState.NotTracked;
         public Vector3 UP = Vector3.up;
-        
+
         public override void InitHand()
         {
             base.InitHand();

@@ -143,6 +143,7 @@
     <Compile Include="Assets\Leap\LeapMotion\Scripts\VR\LeapVRTemporalWarping.cs" />
     <Compile Include="Assets\Leap\LeapMotion\Scripts\VR\TemporalWarpingStatus.cs" />
     <Compile Include="Assets\Scripts\Components\Block.cs" />
+    <Compile Include="Assets\Scripts\Leap\FingerModel.cs" />
     <Compile Include="Assets\Scripts\Leap\HandManager.cs" />
     <Compile Include="Assets\Scripts\Leap\HandModel.cs" />
     <Compile Include="Assets\Scripts\Leap\StickyFingers.cs" />

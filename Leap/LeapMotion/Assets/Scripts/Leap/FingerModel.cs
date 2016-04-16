@@ -41,6 +41,27 @@ namespace Game.Leap
             {
                 FingersState = FingersState.Grasp;
             }
+
+            Debug.Log(string.Format("Finger: {0}, Stretch: {1}, State: {2}", GetFingerName(fingerType), fingerStretch, FingersState));
+        }
+
+        private string GetFingerName(Finger.FingerType finger)
+        {
+            switch (finger)
+            {
+                case Finger.FingerType.TYPE_INDEX:
+                    return "Index";
+                case Finger.FingerType.TYPE_MIDDLE:
+                    return "Middle";
+                case Finger.FingerType.TYPE_PINKY:
+                    return "Pinky";
+                case Finger.FingerType.TYPE_RING:
+                    return "Ring";
+                case Finger.FingerType.TYPE_THUMB:
+                    return "Thumb";
+                default:
+                    return "N/A";
+            }
         }
     }
 }

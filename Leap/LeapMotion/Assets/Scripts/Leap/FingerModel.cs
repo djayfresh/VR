@@ -42,7 +42,7 @@ namespace Game.Leap
                 FingersState = FingersState.Grasp;
             }
 
-            Debug.Log(string.Format("Finger: {0}, Stretch: {1}, State: {2}", GetFingerName(fingerType), fingerStretch, FingersState));
+            //Debug.Log(string.Format("Finger: {0}, Stretch: {1}, State: {2}", GetFingerName(fingerType), fingerStretch, FingersState));
         }
 
         private string GetFingerName(Finger.FingerType finger)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Leap;
+using UnityEngine;
 
 namespace Game.Manager
 {
@@ -7,6 +8,8 @@ namespace Game.Manager
         public Transform SpawnPoint;
 
         public GameObject Item;
+
+        private PinchEvent[] PinchEvent;
         // Use this for initialization
         void Start()
         {

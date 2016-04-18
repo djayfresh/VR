@@ -8,7 +8,7 @@ namespace Game.Manager
     {
         public static int COOLDOWN = 2000;
 
-        public bool GravityEnabled = false;
+        public static bool GravityEnabled = false;
         public List<Rigidbody> Watching;
 
         public HandModel[] Hands;

@@ -34,7 +34,7 @@ namespace Game.Manager
                         Location = loc.Value
                     });
 
-                Debug.Log("Pinch Left");
+                //Debug.Log("Pinch Left");
             }
             loc = null;
             if ((loc = FingerPinchCheck(FingersRight)).HasValue)
@@ -47,7 +47,7 @@ namespace Game.Manager
                         Location = loc.Value
                     });
 
-                Debug.Log("Pinch Right");
+                //Debug.Log("Pinch Right");
             }
         }
 

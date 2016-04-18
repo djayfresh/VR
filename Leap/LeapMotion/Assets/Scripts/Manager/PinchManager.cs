@@ -36,7 +36,7 @@ namespace Game.Manager
 
                 Debug.Log("Pinch Left");
             }
-
+            loc = null;
             if ((loc = FingerPinchCheck(FingersRight)).HasValue)
             {
                 if (OnPinch != null)

@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Game.Manager
 {
-    public class Block : MonoBehaviour
+    public class BlockManager : MonoBehaviour
     {
         public delegate void Created(GameObject obj);
         public static event Created OnCreated;

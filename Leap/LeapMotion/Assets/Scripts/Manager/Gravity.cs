@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Game.Leap;
+using Game.Component.Leap;
 
 namespace Game.Manager
 {
@@ -24,14 +24,14 @@ namespace Game.Manager
         // Use this for initialization
         void Start()
         {
-            Block.OnCreated += NewObject;
+            BlockManager.OnCreated += NewObject;
             InitalHandPositions = new Vector3[Hands.Length];
             LastFrameHandPositions = new Vector3[Hands.Length];
         }
 
         void Destory()
         {
-            Block.OnCreated -= NewObject;
+            BlockManager.OnCreated -= NewObject;
         }
 
         void NewObject(GameObject obj)

@@ -14,9 +14,6 @@ namespace Game.Manager
         private PinchEvent[] PinchEvent = new PinchEvent[2];
         public float PinchDistance = 0.5f;
         
-        public float spawnRate = 0.5f;
-        private float lastSpawn = 1;
-
         private LastSpawned lastSpawned;
         // Use this for initialization
         void Start()
@@ -29,8 +26,6 @@ namespace Game.Manager
         {
             if (PinchEvent[0] == null && PinchEvent[1] == null)
             {
-                lastSpawn += Time.deltaTime;
-
                 if (lastSpawned != null)
                 {
                     lastSpawned.Obj.SetActive(true);
@@ -44,26 +39,25 @@ namespace Game.Manager
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Block.Create(Instantiate(Item, SpawnPoint.position, Quaternion.identity) as GameObject);
+                BlockManager.Create(Instantiate(Item, SpawnPoint.position, Quaternion.identity) as GameObject);
             }
 
             if (PinchEvent[0] != null && PinchEvent[1] != null)
             {
                 float distance = Vector3.Distance(PinchEvent[0].Location, PinchEvent[1].Location);
                 //Debug.Log(distance);
-                if (distance < PinchDistance && lastSpawn >= spawnRate)
+                if (distance < PinchDistance && lastSpawned == null)
                 {
                     Vector3 center = PinchEvent[0].Location + ((PinchEvent[1].Location - PinchEvent[0].Location) / 2);
                     lastSpawned = new LastSpawned();
                     lastSpawned.Obj = Instantiate(Item, center, Quaternion.identity) as GameObject;
                     lastSpawned.Obj.SetActive(false);
-                    Block.Create(lastSpawned.Obj);
+                    BlockManager.Create(lastSpawned.Obj);
 
                     lastSpawned.Temp = Instantiate(TempItem, center, Quaternion.identity) as GameObject;
-                    lastSpawn = 0;
                 }
 
-                if (lastSpawn < spawnRate && lastSpawned != null)
+                if (lastSpawned != null)
                 {
                     lastSpawned.Temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * (distance);
                 }

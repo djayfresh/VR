@@ -4,7 +4,7 @@ using Leap.Unity;
 using UnityEngine;
 using Leap;
 
-namespace Game.Leap
+namespace Game.Component.Leap
 {
     public class HandModel : RigidHand
     {

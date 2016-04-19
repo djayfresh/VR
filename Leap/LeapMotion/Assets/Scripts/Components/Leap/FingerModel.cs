@@ -4,7 +4,7 @@ using Leap.Unity;
 using Game.Manager;
 using Leap;
 
-namespace Game.Leap
+namespace Game.Component.Leap
 {
     public class FingerModel : RigidFinger
     {

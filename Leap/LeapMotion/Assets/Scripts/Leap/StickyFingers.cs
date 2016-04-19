@@ -4,7 +4,7 @@ using Leap.Unity;
 using Game.Manager;
 using System.Collections.Generic;
 using Game.Components;
-using Block = Game.Manager.Block;
+using BlockManager = Game.Manager.BlockManager;
 
 public class StickyFingers : MonoBehaviour {
 
@@ -16,8 +16,8 @@ public class StickyFingers : MonoBehaviour {
     public float StickyRadius = 0.5f;
 	// Use this for initialization
 	void Start () {
-        Block.OnCreated += AddBlock;
-        Block.OnDestory += RemoveBlock;
+        BlockManager.OnCreated += AddBlock;
+        BlockManager.OnDestory += RemoveBlock;
         Game.Components.Block.OnColliderEnter += Collision;
         Watching = new List<GameObject>();
         Updating = new List<StickyFinger>();
@@ -25,8 +25,8 @@ public class StickyFingers : MonoBehaviour {
 
     void Destory()
     {
-        Block.OnCreated -= AddBlock;
-        Block.OnDestory -= RemoveBlock;
+        BlockManager.OnCreated -= AddBlock;
+        BlockManager.OnDestory -= RemoveBlock;
         Game.Components.Block.OnColliderEnter -= Collision;
     }
 

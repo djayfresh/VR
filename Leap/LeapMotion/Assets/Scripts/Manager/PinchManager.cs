@@ -2,7 +2,7 @@
 using System.Collections;
 using Leap.Unity;
 using Game.Leap;
-using FingerModel =  Game.Leap.FingerModel;
+using FingerModel =  Game.Component.Leap.FingerModel;
 
 namespace Game.Manager
 {

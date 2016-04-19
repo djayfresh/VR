@@ -12,13 +12,13 @@ namespace Game.Manager
         // Use this for initialization
         void Start()
         {
-            Block.OnCreated += NewObject;
+            BlockManager.OnCreated += NewObject;
             Watching = new List<GameObject>();
         }
 
         void Destory()
         {
-            Block.OnCreated -= NewObject;
+            BlockManager.OnCreated -= NewObject;
         }
                 
         // Update is called once per frame

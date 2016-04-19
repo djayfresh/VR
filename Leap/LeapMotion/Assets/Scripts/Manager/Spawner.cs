@@ -44,11 +44,11 @@ namespace Game.Manager
 
             if (PinchEvent[0] != null && PinchEvent[1] != null)
             {
+                Vector3 center = PinchEvent[0].Location + ((PinchEvent[1].Location - PinchEvent[0].Location) / 2);
                 float distance = Vector3.Distance(PinchEvent[0].Location, PinchEvent[1].Location);
                 //Debug.Log(distance);
                 if (distance < PinchDistance && lastSpawned == null)
                 {
-                    Vector3 center = PinchEvent[0].Location + ((PinchEvent[1].Location - PinchEvent[0].Location) / 2);
                     lastSpawned = new LastSpawned();
                     lastSpawned.Obj = Instantiate(Item, center, Quaternion.identity) as GameObject;
                     lastSpawned.Obj.SetActive(false);
@@ -59,7 +59,8 @@ namespace Game.Manager
 
                 if (lastSpawned != null)
                 {
-                    lastSpawned.Temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * (distance);
+                    lastSpawned.Temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * (distance * 0.6f);
+                    lastSpawned.Temp.transform.position = center;
                 }
 
                 PinchEvent[0] = null;

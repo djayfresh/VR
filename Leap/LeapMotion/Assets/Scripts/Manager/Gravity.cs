@@ -20,6 +20,7 @@ namespace Game.Manager
         private int Cooldown = 0;
         private Vector3[] InitalHandPositions;
         private Vector3[] LastFrameHandPositions;
+        public float UpForce = 1.0f;
         // Use this for initialization
         void Start()
         {
@@ -63,6 +64,13 @@ namespace Game.Manager
                 if (obj != null)
                 {
                     obj.useGravity = GravityEnabled;
+                    if(!GravityEnabled)
+                    {
+                        Vector3 randomForceUp = Vector3.Normalize(new Vector3(Random.Range(0, 1), 1, Random.Range(0, 1)));
+                        Vector3 randomTorque = Vector3.Normalize(new Vector3(Random.Range(0, 1), Random.Range(0,1), Random.Range(0, 1)));
+                        obj.AddForce(randomForceUp * Random.Range(0.001f, UpForce));
+                        obj.AddTorque(randomTorque * Random.Range(0.001f, UpForce));
+                    }
                 }
             }
         }

@@ -13,8 +13,8 @@ namespace Game.Manager
         private PinchEvent[] PinchEvent = new PinchEvent[2];
         public float PinchDistance = 0.5f;
         
-        public float spawnRate = 1.2f;
-        private float lastSpawn = 2;
+        public float spawnRate = 0.5f;
+        private float lastSpawn = 1;
 
         private GameObject lastSpawned;
         // Use this for initialization
@@ -34,13 +34,13 @@ namespace Game.Manager
                 {
                     lastSpawned.GetComponent<Collider>().enabled = true;
                     lastSpawned.GetComponent<Rigidbody>().useGravity = Gravity.GravityEnabled;
+                    lastSpawned = null;
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && lastSpawn >= spawnRate)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 Block.Create(Instantiate(Item, SpawnPoint.position, Quaternion.identity) as GameObject);
-                lastSpawn = 0;
             }
 
             if (PinchEvent[0] != null && PinchEvent[1] != null)

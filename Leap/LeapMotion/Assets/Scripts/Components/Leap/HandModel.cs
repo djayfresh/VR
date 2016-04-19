@@ -9,11 +9,24 @@ namespace Game.Component.Leap
     public class HandModel : RigidHand
     {
         public HandState HandState = HandState.NotTracking;
+        public FingersState FingersState = FingersState.NotTracked;
         public Vector3 UP = Vector3.up;
 
+        private FingerModel[] Fingers;
         public override void InitHand()
         {
             base.InitHand();
+
+            Fingers = new FingerModel[fingers.Length];
+            InitFingers();
+        }
+
+        private void InitFingers()
+        {
+            for(int i = 0; i < fingers.Length; i++)
+            {
+                Fingers[i] = (FingerModel)fingers[i];
+            }
         }
 
         public override void UpdateHand()
@@ -21,6 +34,41 @@ namespace Game.Component.Leap
             base.UpdateHand();
 
             HandFacingState();
+
+            FingerStateCheck();
+        }
+
+        private void FingerStateCheck()
+        {
+            bool openHand = true;
+            bool closedHand = true;
+            foreach (var finger in Fingers)
+            {
+                if (finger.FingersState != FingersState.Open)
+                {
+                    openHand = false;
+                }
+
+                if (finger.FingersState != FingersState.Closed)
+                {
+                    closedHand = false;
+                }
+            }
+
+            bool graspHand = !closedHand && !openHand;
+
+            if (graspHand)
+            {
+                FingersState = FingersState.Grasp;
+            }
+            if (closedHand)
+            {
+                FingersState = FingersState.Closed;
+            }
+            if (openHand)
+            {
+                FingersState = FingersState.Open;
+            }
         }
 
         private void HandFacingState()

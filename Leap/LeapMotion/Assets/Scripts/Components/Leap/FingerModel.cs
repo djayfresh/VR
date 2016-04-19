@@ -37,7 +37,7 @@ namespace Game.Component.Leap
                 FingersState = FingersState.Open;
             }
 
-            if(fingerStretch < OpenUpperBounds && fingerStretch > ClosedLowerBounds)
+            if(fingerStretch <= OpenUpperBounds && fingerStretch >= ClosedLowerBounds)
             {
                 FingersState = FingersState.Grasp;
             }

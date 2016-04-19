@@ -15,10 +15,6 @@ namespace Game.Manager
         NotTracking,
         Down,
         Up,
-        Left,
-        Right,
-        Forward,
-        Back
     }
 
     public enum FingersState
@@ -26,8 +22,6 @@ namespace Game.Manager
         NotTracked,
         Open,
         Closed,
-        Pinch,
-        Pointing,
         Grasp
     }
 }

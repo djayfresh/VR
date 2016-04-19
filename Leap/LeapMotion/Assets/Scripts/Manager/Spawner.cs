@@ -9,6 +9,7 @@ namespace Game.Manager
         public Transform SpawnPoint;
 
         public GameObject Item;
+        public GameObject TempItem;
 
         private PinchEvent[] PinchEvent = new PinchEvent[2];
         public float PinchDistance = 0.5f;
@@ -16,7 +17,7 @@ namespace Game.Manager
         public float spawnRate = 0.5f;
         private float lastSpawn = 1;
 
-        private GameObject lastSpawned;
+        private LastSpawned lastSpawned;
         // Use this for initialization
         void Start()
         {
@@ -32,8 +33,11 @@ namespace Game.Manager
 
                 if (lastSpawned != null)
                 {
-                    lastSpawned.GetComponent<Collider>().enabled = true;
-                    lastSpawned.GetComponent<Rigidbody>().useGravity = Gravity.GravityEnabled;
+                    lastSpawned.Obj.SetActive(true);
+                    lastSpawned.Obj.transform.position = lastSpawned.Temp.transform.position;
+                    lastSpawned.Obj.transform.rotation = lastSpawned.Temp.transform.rotation;
+                    lastSpawned.Obj.transform.localScale = lastSpawned.Temp.transform.localScale;
+                    Destroy(lastSpawned.Temp);
                     lastSpawned = null;
                 }
             }
@@ -50,16 +54,18 @@ namespace Game.Manager
                 if (distance < PinchDistance && lastSpawn >= spawnRate)
                 {
                     Vector3 center = PinchEvent[0].Location + ((PinchEvent[1].Location - PinchEvent[0].Location) / 2);
-                    lastSpawned = Instantiate(Item, center, Quaternion.identity) as GameObject;
-                    Block.Create(lastSpawned);
+                    lastSpawned = new LastSpawned();
+                    lastSpawned.Obj = Instantiate(Item, center, Quaternion.identity) as GameObject;
+                    lastSpawned.Obj.SetActive(false);
+                    Block.Create(lastSpawned.Obj);
+
+                    lastSpawned.Temp = Instantiate(TempItem, center, Quaternion.identity) as GameObject;
                     lastSpawn = 0;
                 }
 
                 if (lastSpawn < spawnRate && lastSpawned != null)
                 {
-                    lastSpawned.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * (distance);
-                    lastSpawned.GetComponent<Collider>().enabled = false;
-                    lastSpawned.GetComponent<Rigidbody>().useGravity = false;
+                    lastSpawned.Temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * (distance);
                 }
 
                 PinchEvent[0] = null;
@@ -85,5 +91,11 @@ namespace Game.Manager
                 PinchEvent[1] = evnt;
             }
         }
+    }
+
+    public class LastSpawned
+    {
+        public GameObject Obj;
+        public GameObject Temp;
     }
 }

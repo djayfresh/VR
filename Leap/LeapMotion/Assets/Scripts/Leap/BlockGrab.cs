@@ -20,6 +20,7 @@ namespace Game.Leap
             HandManager.ReleaseGrip += ReleaseGrip;
             BlockManager.OnCreated += NewObject;
             BlockManager.OnDestroyed += RemoveObject;
+            PinchManager.OnPinch += RemoveObjectPinch;
         }
 
         void OnDestroy()
@@ -41,6 +42,11 @@ namespace Game.Leap
                 GrabbedObject = null;
             }
             Watching.Remove(obj);
+        }
+
+        void RemoveObjectPinch(PinchEvent evnt)
+        {
+            GrabbedObject = null;
         }
 
         void Grab(HandModel hand)
@@ -87,7 +93,10 @@ namespace Game.Leap
             float lastDistance = MaxGrabDistance;
             foreach(var obj in Watching)
             {
-                float distance = Vector3.Distance(obj.transform.position, position);
+                Collider collider = obj.GetComponent<Collider>();
+                Vector3 postiionOnObj = collider.ClosestPointOnBounds(position);
+                float distance = Vector3.Distance(postiionOnObj, position);
+
                 if(distance < lastDistance)
                 {
                     returnObject = obj;

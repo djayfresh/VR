@@ -73,11 +73,6 @@ namespace Game.Component.Leap
             {
                 FingersState = FingersState.Open;
             }
-            //One or two fingers may be "Closed/Open" but the hand is in a grasp position
-            if(!graspHand && !closedHand && !openHand)
-            {
-                FingersState = FingersState.Grasp;
-            }
         }
 
         private void HandFacingState()

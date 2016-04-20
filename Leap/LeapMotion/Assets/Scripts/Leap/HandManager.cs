@@ -22,7 +22,7 @@ namespace Game.Manager
         {
             foreach(var hand in Hands)
             {
-                if (hand.FingersState == FingersState.Closed && hand.IsTracked)
+                if (hand.FingersState == FingersState.Grasp && hand.IsTracked)
                 {
                     if(OnGrab != null)
                     {

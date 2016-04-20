@@ -25,7 +25,7 @@ namespace Game.Component.Leap
 
         private void FingerStateCheck()
         {
-            float fingerStretch = GetFingerJointStretchMecanim((int)Bone.BoneType.TYPE_METACARPAL);
+            float fingerStretch = GetFingerJointStretchMecanim((int)Bone.BoneType.TYPE_PROXIMAL);
 
             if(fingerStretch < ClosedLowerBounds)
             {

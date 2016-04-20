@@ -42,6 +42,7 @@ namespace Game.Component.Leap
         {
             bool openHand = true;
             bool closedHand = true;
+            bool graspHand = true;
             foreach (var finger in Fingers)
             {
                 if (finger.FingersState != FingersState.Open)
@@ -53,9 +54,12 @@ namespace Game.Component.Leap
                 {
                     closedHand = false;
                 }
-            }
 
-            bool graspHand = !closedHand && !openHand;
+                if(finger.FingersState != FingersState.Grasp)
+                {
+                    graspHand = false;
+                }
+            }
 
             if (graspHand)
             {
@@ -68,6 +72,11 @@ namespace Game.Component.Leap
             if (openHand)
             {
                 FingersState = FingersState.Open;
+            }
+            //One or two fingers may be "Closed/Open" but the hand is in a grasp position
+            if(!graspHand && !closedHand && !openHand)
+            {
+                FingersState = FingersState.Grasp;
             }
         }
 
@@ -96,6 +105,4 @@ namespace Game.Component.Leap
             }
         }
     }
-
-
 }

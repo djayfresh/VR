@@ -8,8 +8,8 @@ namespace Game.Manager
         public delegate void Created(GameObject obj);
         public static event Created OnCreated;
 
-        public delegate void Destoryed(GameObject obj);
-        public static event Destoryed OnDestory;
+        public delegate void Destroyed(GameObject obj);
+        public static event Destroyed OnDestroyed;
         // Use this for initialization
         void Start()
         {
@@ -22,14 +22,20 @@ namespace Game.Manager
 
         }
 
-        public static void Create(GameObject obj)
+        public static void CreateBlock(GameObject obj)
         {
-            OnCreated(obj);
+            if (OnCreated != null)
+            {
+                OnCreated(obj);
+            }
         }
 
-        public static void Destory(GameObject obj)
+        public static void DestroyBlock(GameObject obj)
         {
-            OnDestory(obj);
+            if (OnDestroyed != null)
+            {
+                OnDestroyed(obj);
+            }
         }
 
     }

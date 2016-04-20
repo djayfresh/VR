@@ -16,7 +16,7 @@ namespace Game.Manager
             Watching = new List<GameObject>();
         }
 
-        void Destory()
+        void OnDestroy()
         {
             BlockManager.OnCreated -= NewObject;
         }
@@ -32,6 +32,7 @@ namespace Game.Manager
                     float distance = Vector3.Distance(obj.transform.position, SpawnPoint.position);
                     if (distance >= despawnDistance)
                     {
+                        BlockManager.DestroyBlock(obj);
                         Destroy(obj);
                         Watching[i] = null;
                     }

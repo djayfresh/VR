@@ -29,7 +29,7 @@ namespace Game.Manager
             LastFrameHandPositions = new Vector3[Hands.Length];
         }
 
-        void Destory()
+        void OnDestroy()
         {
             BlockManager.OnCreated -= NewObject;
         }

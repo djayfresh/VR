@@ -32,6 +32,7 @@ namespace Game.Manager
                     lastSpawned.Obj.transform.position = lastSpawned.Temp.transform.position;
                     lastSpawned.Obj.transform.rotation = lastSpawned.Temp.transform.rotation;
                     lastSpawned.Obj.transform.localScale = lastSpawned.Temp.transform.localScale;
+                    lastSpawned.Obj.GetComponent<Rigidbody>().mass += lastSpawned.Temp.transform.localScale.x * 20;
                     Destroy(lastSpawned.Temp);
                     lastSpawned = null;
                 }
@@ -39,7 +40,7 @@ namespace Game.Manager
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                BlockManager.Create(Instantiate(Item, SpawnPoint.position, Quaternion.identity) as GameObject);
+                BlockManager.CreateBlock(Instantiate(Item, SpawnPoint.position, Quaternion.identity) as GameObject);
             }
 
             if (PinchEvent[0] != null && PinchEvent[1] != null)
@@ -52,7 +53,7 @@ namespace Game.Manager
                     lastSpawned = new LastSpawned();
                     lastSpawned.Obj = Instantiate(Item, center, Quaternion.identity) as GameObject;
                     lastSpawned.Obj.SetActive(false);
-                    BlockManager.Create(lastSpawned.Obj);
+                    BlockManager.CreateBlock(lastSpawned.Obj);
 
                     lastSpawned.Temp = Instantiate(TempItem, center, Quaternion.identity) as GameObject;
                 }

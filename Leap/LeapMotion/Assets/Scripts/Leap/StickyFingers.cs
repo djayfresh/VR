@@ -17,16 +17,16 @@ public class StickyFingers : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         BlockManager.OnCreated += AddBlock;
-        BlockManager.OnDestory += RemoveBlock;
+        BlockManager.OnDestroyed += RemoveBlock;
         Game.Components.Block.OnColliderEnter += Collision;
         Watching = new List<GameObject>();
         Updating = new List<StickyFinger>();
 	}
 
-    void Destory()
+    void OnDestroy()
     {
         BlockManager.OnCreated -= AddBlock;
-        BlockManager.OnDestory -= RemoveBlock;
+        BlockManager.OnDestroyed -= RemoveBlock;
         Game.Components.Block.OnColliderEnter -= Collision;
     }
 

@@ -46,6 +46,12 @@ namespace Game.Leap
 
         void RemoveObjectPinch(PinchEvent evnt)
         {
+            if (GrabbedObject != null)
+            {
+                Debug.Log("Pinch Release");
+                Rigidbody body = GrabbedObject.GrabbedObject.GetComponent<Rigidbody>();
+                body.useGravity = false;
+            }
             GrabbedObject = null;
         }
 
@@ -58,6 +64,8 @@ namespace Game.Leap
                 if (close != null)
                 {
                     Debug.Log("Hand Grab");
+                    Rigidbody body = close.GetComponent<Rigidbody>();
+                    body.useGravity = false;
                     GrabbedObject = new HandGrabModel()
                     {
                         ActiveHand = hand,
@@ -82,6 +90,7 @@ namespace Game.Leap
             {
                 Debug.Log("Release Grab");
                 Rigidbody body = GrabbedObject.GrabbedObject.GetComponent<Rigidbody>();
+                body.useGravity = Gravity.GravityEnabled;
                 body.AddForce((GrabbedObject.ActiveHand.GetPalmPosition() - GrabbedObject.HandPositionLastFrame) * 20);
                 GrabbedObject = null;
             }

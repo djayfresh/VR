@@ -50,7 +50,7 @@ namespace Game.Leap
             {
                 Debug.Log("Pinch Release");
                 Rigidbody body = GrabbedObject.GrabbedObject.GetComponent<Rigidbody>();
-                body.useGravity = false;
+                body.useGravity = Gravity.GravityEnabled;
             }
             GrabbedObject = null;
         }
